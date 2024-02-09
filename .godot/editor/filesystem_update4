@@ -1,0 +1,10 @@
+res://Enemy/Enemy.tscn
+res://Player/Player.tscn
+res://Enemy/Enemy.gd
+res://MainGameScene/MainGameScene.tscn
+res://Player/Player.gd
+res://MainGameScene/debug.gd
+res://MainGameScene/MainGameScene.gd
+res://CFGManager.gd
+res://gift-master/gift-master/example/Example.gd
+res://MainGameScene/Popup.gd

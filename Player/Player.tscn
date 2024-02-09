@@ -1,0 +1,82 @@
+[gd_scene load_steps=8 format=3 uid="uid://hp0fhc140nim"]
+
+[ext_resource type="Texture2D" uid="uid://mywyglpp3pcw" path="res://Player/Player.png" id="1_52l5r"]
+[ext_resource type="Script" path="res://Player/Player.gd" id="2_j458h"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ubl2b"]
+size = Vector2(64, 128)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qapnl"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d7bkw"]
+bg_color = Color(0.522131, 0.886222, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mcgne"]
+bg_color = Color(0.941176, 0, 0.0705882, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2xul8"]
+size = Vector2(60, 120)
+
+[node name="Player" type="CharacterBody2D" groups=["Player"]]
+collision_layer = 2
+collision_mask = 3
+script = ExtResource("2_j458h")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(32, 64)
+shape = SubResource("RectangleShape2D_ubl2b")
+
+[node name="HealthBar" type="ProgressBar" parent="."]
+offset_left = 10.0
+offset_top = 1.0
+offset_right = 18.0
+offset_bottom = 41.0
+theme_override_styles/background = SubResource("StyleBoxFlat_qapnl")
+theme_override_styles/fill = SubResource("StyleBoxFlat_d7bkw")
+step = 1.0
+value = 100.0
+fill_mode = 3
+show_percentage = false
+
+[node name="StrengthBar" type="ProgressBar" parent="."]
+offset_left = 46.0
+offset_top = 2.0
+offset_right = 54.0
+offset_bottom = 42.0
+theme_override_styles/background = SubResource("StyleBoxFlat_qapnl")
+theme_override_styles/fill = SubResource("StyleBoxFlat_mcgne")
+step = 1.0
+value = 5.0
+fill_mode = 3
+show_percentage = false
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_52l5r")
+centered = false
+
+[node name="Label" type="Label" parent="."]
+offset_left = 3.0
+offset_top = 83.0
+offset_right = 60.0
+offset_bottom = 111.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 20
+text = "LVL:1"
+
+[node name="Label2" type="Label" parent="."]
+offset_left = 1.0
+offset_top = 38.0
+offset_right = 64.0
+offset_bottom = 90.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+autowrap_mode = 1
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(32, 64)
+shape = SubResource("RectangleShape2D_2xul8")
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_entered"]

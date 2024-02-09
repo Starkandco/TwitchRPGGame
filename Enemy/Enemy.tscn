@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://bvepuribj35g1"]
+
+[ext_resource type="PackedScene" uid="uid://hp0fhc140nim" path="res://Player/Player.tscn" id="1_1xidl"]
+[ext_resource type="Script" path="res://Enemy/Enemy.gd" id="1_ffvqn"]
+
+[node name="Enemy" groups=["Bot"] instance=ExtResource("1_1xidl")]
+collision_layer = 4
+collision_mask = 5
+script = ExtResource("1_ffvqn")
+damage = 2
+max_damage = 50
+health = 50
+max_health = 50
+
+[node name="CollisionShape2D" parent="." index="0"]
+visible = true

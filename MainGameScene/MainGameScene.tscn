@@ -1,0 +1,193 @@
+[gd_scene load_steps=11 format=3 uid="uid://b1pvhdgekhlvc"]
+
+[ext_resource type="Texture2D" uid="uid://bnae7uwyytmux" path="res://Starting Board.png" id="1_gh1gt"]
+[ext_resource type="Script" path="res://MainGameScene/MainGameScene.gd" id="1_puf6l"]
+[ext_resource type="Script" path="res://gift-master/gift-master/example/Example.gd" id="3_3u8xb"]
+[ext_resource type="Texture2D" uid="uid://4tc31eampbqc" path="res://Enemy/Arrow.png" id="3_6ap5e"]
+[ext_resource type="Script" path="res://MainGameScene/debug.gd" id="4_dlp84"]
+[ext_resource type="Script" path="res://CFGManager.gd" id="5_22who"]
+[ext_resource type="Script" path="res://MainGameScene/Popup.gd" id="7_vt4pk"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mpsko"]
+size = Vector2(1930, 139)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yaes4"]
+size = Vector2(96, 1173.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a0qic"]
+size = Vector2(40, 88)
+
+[node name="MainGameScene" type="Node2D" groups=["Main"]]
+script = ExtResource("1_puf6l")
+
+[node name="GameBoard" type="Sprite2D" parent="."]
+texture = ExtResource("1_gh1gt")
+centered = false
+
+[node name="Sprite2D" type="Sprite2D" parent="GameBoard"]
+position = Vector2(1702, 823)
+rotation = 0.785398
+scale = Vector2(2, 2)
+texture = ExtResource("3_6ap5e")
+
+[node name="Label" type="Label" parent="GameBoard/Sprite2D"]
+offset_left = -24.395
+offset_top = -8.83885
+offset_right = 47.605
+offset_bottom = 14.1611
+theme_override_font_sizes/font_size = 12
+text = "Get here!"
+
+[node name="Label" type="Label" parent="GameBoard"]
+visible = false
+offset_left = 353.0
+offset_top = 406.0
+offset_right = 1482.0
+offset_bottom = 727.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 128
+text = "testestestest"
+
+[node name="Label2" type="Label" parent="GameBoard"]
+offset_left = 203.0
+offset_top = 6.0
+offset_right = 1377.0
+offset_bottom = 127.0
+theme_override_font_sizes/font_size = 20
+text = "\"!join\" to join
+\"!move left\" to move left. Also possible are move right/down/up
+\"!levelup health\" to spend your levels on health or \"!levelup damage\" to spend your levels on damage (1 point per levelup)
+\"!leave\" to leave the game"
+
+[node name="Sprite2D2" type="Sprite2D" parent="GameBoard"]
+position = Vector2(241, 362)
+rotation = -2.35619
+scale = Vector2(2, 2)
+texture = ExtResource("3_6ap5e")
+
+[node name="Label" type="Label" parent="GameBoard/Sprite2D2"]
+offset_left = 51.2652
+offset_top = 8.83879
+offset_right = 123.265
+offset_bottom = 31.8387
+rotation = 3.14159
+theme_override_font_sizes/font_size = 12
+text = "Bots here bad!!"
+
+[node name="StaticBody2D" type="StaticBody2D" parent="GameBoard"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameBoard/StaticBody2D"]
+position = Vector2(955, 60.5)
+shape = SubResource("RectangleShape2D_mpsko")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="GameBoard/StaticBody2D"]
+position = Vector2(966, 1094)
+shape = SubResource("RectangleShape2D_mpsko")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="GameBoard/StaticBody2D"]
+position = Vector2(18, 575.75)
+shape = SubResource("RectangleShape2D_yaes4")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="GameBoard/StaticBody2D"]
+position = Vector2(1904, 574)
+shape = SubResource("RectangleShape2D_yaes4")
+
+[node name="EnemyGoal" type="Area2D" parent="GameBoard"]
+position = Vector2(98, 194)
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameBoard/EnemyGoal"]
+position = Vector2(-12, -20)
+shape = SubResource("RectangleShape2D_a0qic")
+
+[node name="PlayerGoal" type="Area2D" parent="GameBoard"]
+position = Vector2(1859, 1014)
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameBoard/PlayerGoal"]
+position = Vector2(-12, -20)
+shape = SubResource("RectangleShape2D_a0qic")
+
+[node name="Players" type="Node2D" parent="GameBoard"]
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+
+[node name="Label" type="Label" parent="Timer"]
+offset_left = 1508.0
+offset_top = -30.0
+offset_right = 1795.0
+offset_bottom = 145.0
+theme_override_font_sizes/font_size = 128
+
+[node name="TwitchNode" type="Control" parent="." groups=["Twitch"]]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("3_3u8xb")
+
+[node name="ConfigManager" type="Node" parent="."]
+script = ExtResource("5_22who")
+
+[node name="Window" type="Window" parent="."]
+title = "debug"
+position = Vector2i(100, 100)
+visible = false
+script = ExtResource("4_dlp84")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Window"]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Button" type="Button" parent="Window/VBoxContainer"]
+layout_mode = 2
+text = "Add player"
+
+[node name="OptionButton" type="OptionButton" parent="Window/VBoxContainer"]
+layout_mode = 2
+item_count = 5
+selected = 0
+popup/item_0/text = "2"
+popup/item_0/id = 0
+popup/item_1/text = "5"
+popup/item_1/id = 1
+popup/item_2/text = "10"
+popup/item_2/id = 2
+popup/item_3/text = "15"
+popup/item_3/id = 3
+popup/item_4/text = "30"
+popup/item_4/id = 4
+
+[node name="Popup" type="Window" parent="."]
+process_mode = 3
+title = "CONFIG REQUIRED"
+initial_position = 1
+size = Vector2i(300, 272)
+visible = false
+script = ExtResource("7_vt4pk")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Popup"]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="Popup/VBoxContainer"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Edit generated cfg and run the game again"
+autowrap_mode = 2
+
+[node name="Button" type="Button" parent="Popup/VBoxContainer"]
+layout_mode = 2
+text = "OK, I understand"
+
+[connection signal="body_entered" from="GameBoard/EnemyGoal" to="." method="_on_enemy_goal_body_entered"]
+[connection signal="body_entered" from="GameBoard/PlayerGoal" to="." method="_on_player_goal_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="close_requested" from="Window" to="Window" method="_on_close_requested"]
+[connection signal="pressed" from="Window/VBoxContainer/Button" to="Window" method="_on_button_pressed"]
+[connection signal="item_selected" from="Window/VBoxContainer/OptionButton" to="Window" method="_on_option_button_item_selected"]
+[connection signal="pressed" from="Popup/VBoxContainer/Button" to="Popup" method="_on_button_pressed"]
