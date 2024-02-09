@@ -11,7 +11,7 @@ Update the setup.cfg with your client ID, channel name, and a name for the bot (
 Run again and confirm authorisation from twitch to the app!
 setup.cfg contains a refreshspeed which only allows values 0->4. 0 = 2 second refresh, 1 = 5 sec, 2 =10 sec, 3 = 15 sec, 4 = 30 sec (default)
 
-Built application available [here](https://itch.io/game/summary/2519992)
+Built application available [here](https://starkandco.itch.io/twitch-stick-figure-game)
 
 "#" in game to open a debug menu to change the settings/try adding a player (they don't move tho so..)
 
