@@ -85,6 +85,7 @@ func player_move(cmd_info: CommandInfo, second_arg) -> void:
 	if players.has(cmd_info.sender_data.user):
 		var arg = str(second_arg[0]).to_upper()
 		if (arg in ["LEFT", "RIGHT", "UP", "DOWN"]):
+			get_tree().get_first_node_in_group("Main").players[cmd_info.sender_data.user][0].prepare_move(arg)
 			get_tree().get_first_node_in_group("Main").queued_actions.append([cmd_info.sender_data.user, MOVE, arg])
 
 func player_level_up(cmd_info: CommandInfo, second_arg) -> void:

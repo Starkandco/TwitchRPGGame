@@ -29,7 +29,25 @@ func level_up(stat):
 			max_health += 25
 			$HealthBar.max_value = max_health
 
+func prepare_move(direction):
+	match direction:
+		"RIGHT":
+			$Arrow.visible = true
+			$Arrow.rotation_degrees = 0
+		"LEFT":
+			$Arrow.visible = true
+			$Arrow.rotation_degrees = 180
+		"UP":
+			$Arrow.visible = true
+			$Arrow.rotation_degrees = 270
+		"DOWN":
+			$Arrow.visible = true
+			$Arrow.rotation_degrees = 90
+		
+
 func move(direction):
+	$Arrow.visible = false
+	$Arrow.rotation_degrees = 0
 	match direction:
 		"RIGHT":
 			velocity = Vector2.RIGHT * horizontal_speed

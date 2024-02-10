@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://bnae7uwyytmux" path="res://Starting Board.png" id="1_gh1gt"]
 [ext_resource type="Script" path="res://MainGameScene/MainGameScene.gd" id="1_puf6l"]
 [ext_resource type="Script" path="res://gift-master/gift-master/example/Example.gd" id="3_3u8xb"]
-[ext_resource type="Texture2D" uid="uid://4tc31eampbqc" path="res://Enemy/Arrow.png" id="3_6ap5e"]
+[ext_resource type="Texture2D" uid="uid://4tc31eampbqc" path="res://Arrow.png" id="3_6ap5e"]
 [ext_resource type="Script" path="res://MainGameScene/debug.gd" id="4_dlp84"]
 [ext_resource type="Script" path="res://CFGManager.gd" id="5_22who"]
 [ext_resource type="Script" path="res://MainGameScene/Popup.gd" id="7_vt4pk"]

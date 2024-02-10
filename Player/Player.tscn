@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://hp0fhc140nim"]
+[gd_scene load_steps=9 format=3 uid="uid://hp0fhc140nim"]
 
 [ext_resource type="Texture2D" uid="uid://mywyglpp3pcw" path="res://Player/Player.png" id="1_52l5r"]
 [ext_resource type="Script" path="res://Player/Player.gd" id="2_j458h"]
+[ext_resource type="Texture2D" uid="uid://4tc31eampbqc" path="res://Arrow.png" id="3_dadbo"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ubl2b"]
 size = Vector2(64, 128)
@@ -78,5 +79,15 @@ autowrap_mode = 1
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(32, 64)
 shape = SubResource("RectangleShape2D_2xul8")
+
+[node name="Arrow" type="Node2D" parent="."]
+visible = false
+position = Vector2(32, 64)
+
+[node name="Sprite2D2" type="Sprite2D" parent="Arrow"]
+position = Vector2(0, -16)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_dadbo")
+centered = false
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_entered"]

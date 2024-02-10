@@ -13,6 +13,7 @@ func _ready():
 
 func queue_command():
 	var randi_direction = directions[randi_range(0, 3)]
+	prepare_move(randi_direction)
 	var command = [user, 1, randi_direction]
 	get_tree().get_first_node_in_group("Main").queued_actions.append(command)
 
