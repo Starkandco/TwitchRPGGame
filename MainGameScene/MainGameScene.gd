@@ -7,6 +7,7 @@ var colours = [Color.PINK, Color.AQUA, Color.FUCHSIA, Color.PURPLE, Color.VIOLET
 var positions = []
 var queued_actions = []
 var spawn = 4
+var spawn_counter = 4
 
 enum {JOIN, MOVE, LEVELUP, LEAVE}
 
@@ -84,8 +85,8 @@ func _on_timer_timeout():
 			join(action[0])
 	queued_actions.clear()
 	await get_tree().create_timer(1).timeout
-	if spawn >= 4 and !$Timer.is_stopped():
-		spawn = 0
+	if spawn_counter >= spawn and !$Timer.is_stopped():
+		spawn_counter = 0
 		if is_open_position():
 			var bots = get_tree().get_nodes_in_group("Bot")
 			if bots.size() < colours.size():
@@ -99,7 +100,7 @@ func _on_timer_timeout():
 				enemy.queue_command()
 				$Timer.timeout.connect(enemy.queue_command)
 	else:
-		spawn += 1
+		spawn_counter += 1
 
 func all_players_experience():
 	for player in get_tree().get_nodes_in_group("Player"):
