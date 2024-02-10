@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="TwitchRPGGame"
+config/name="TwitchStickmanGame"
 run/main_scene="res://MainGameScene/MainGameScene.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
