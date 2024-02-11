@@ -22,6 +22,7 @@ size = Vector2(60, 120)
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 collision_layer = 2
 collision_mask = 3
+safe_margin = 0.001
 script = ExtResource("2_j458h")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
