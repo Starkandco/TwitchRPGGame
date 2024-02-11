@@ -2,7 +2,7 @@ This is a really basic game to play with your viewers on twitch / keep the chat 
 
 --
 
-#SETUP
+# SETUP
 
 Go to https://dev.twitch.tv/ and login. 
 Register an Application in the Application section.
@@ -10,9 +10,10 @@ Name the application and get a Client ID.
 Run the game for the first time to generate "setup.cfg" in the folder the .exe is in (this must stay in the same folder as the .exe file)
 Update the setup.cfg with your client ID, channel name, and a name for the bot (anything works here)
 Run again and confirm authorisation from twitch to the app!
+
 --
 
-#Viewer Commands (shown in game):
+# Viewer Commands (shown in game):
 
 !join - Join the game, also starts the round if the round hasn't started yet
 
@@ -24,7 +25,7 @@ Run again and confirm authorisation from twitch to the app!
 
 --
 
-#Configuration
+# Configuration
 
 The generated setup.cfg file also contains:
 
