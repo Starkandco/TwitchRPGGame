@@ -5,20 +5,23 @@ extends Node2D
 var players = {}
 var colours = [Color.PINK, Color.AQUA, Color.FUCHSIA, Color.PURPLE, Color.VIOLET, Color.INDIGO, Color.BLUE, Color.LIGHT_BLUE, Color.CYAN, Color.TEAL, Color.DARK_GREEN, Color.GREEN, Color.LIME, Color.YELLOW, Color.ORANGE, Color.RED, Color.GRAY, Color.LIGHT_SLATE_GRAY, Color.MISTY_ROSE]
 var positions = []
-var queued_actions = []
+var queued_actions = {}
 var spawn = 4
 var spawn_counter = 4
+var started = false
 
-enum {JOIN, MOVE, LEVELUP, LEAVE}
+signal actions_complete
+
+enum {LEAVE, MOVE, JOIN, LEVELUP}
 
 func _ready():
-	for x in range(65, DisplayServer.window_get_size().x  - 63, 64):
-		for y in range(129, DisplayServer.window_get_size().y - 127, 128):
+	for x in range(66, DisplayServer.window_get_size().x  - 63, 64):
+		for y in range(130, DisplayServer.window_get_size().y - 127, 128):
 			positions.append(Vector2(x, y))
 
 func _process(_delta):
 	$Timer/Label.text = str(int($Timer.time_left))
-	if players.size() == 0 and queued_actions.size() != 0:
+	if players.size() == 0 and queued_actions.size() != 0 and $Timer.is_stopped() and !started:
 		_on_timer_timeout()
 
 func join(user):
@@ -62,30 +65,28 @@ func is_open_position() -> bool:
 
 func is_entity_in_spot(spot) -> bool:
 	for player in get_tree().get_nodes_in_group("Player"): 
-		if player.global_position == spot:
+		var player_x = roundf(player.global_position.x)
+		var player_y = roundf(player.global_position.y)
+		if Vector2(player_x, player_y) == spot:
 			return true
 	return false
 
 func _on_timer_timeout():
+	started = true
+	$Timer.stop()
 	all_players_experience()
-	for action in queued_actions:
-		if action[1] != JOIN:
-			if players.has(action[0]) and is_instance_valid(players[action[0]][0]):
-				match action[1]:
-					MOVE:
-						players[action[0]][0].move(action[2])
-					LEVELUP:
-						players[action[0]][0].level_up(action[2])
-					LEAVE:
-						leave(action[0])
-		elif action[1] == JOIN:
-			if players.size() == 0:
-				$GameBoard/Label.visible = false
-				$Timer.start()
-			join(action[0])
+	for x in range(4):
+		if x == 2:
+			try_create_bot()
+		if !queued_actions.has(x): continue
+		await loop_actions(x)
 	queued_actions.clear()
-	await get_tree().create_timer(1).timeout
-	if spawn_counter >= spawn and !$Timer.is_stopped():
+	started = false
+	$Timer.start()
+	actions_complete.emit()
+
+func try_create_bot() -> void:
+	if spawn_counter >= spawn:
 		spawn_counter = 0
 		if is_open_position():
 			var bots = get_tree().get_nodes_in_group("Bot")
@@ -98,9 +99,32 @@ func _on_timer_timeout():
 				enemy.global_position = get_enemy_position()
 				enemy.get_node("Sprite2D").modulate = colours[bots.size() - 1]
 				enemy.queue_command()
-				$Timer.timeout.connect(enemy.queue_command)
+				actions_complete.connect(enemy.queue_command)
 	else:
 		spawn_counter += 1
+
+func loop_actions(x) -> void:
+	match x:
+		JOIN:
+			for y in range(queued_actions[JOIN].size()):
+				join(queued_actions[JOIN][y])
+				if players.size() == 1: 
+					$GameBoard/Label.visible = false
+				await get_tree().create_timer(1).timeout
+			return
+		MOVE:
+			for player_name in queued_actions[MOVE]:
+				players[player_name][0].move(queued_actions[MOVE][player_name])
+				await get_tree().create_timer(1).timeout
+			return
+		LEVELUP:
+			for y in range(queued_actions[LEVELUP].size()):
+				players[queued_actions[LEVELUP][y][0]][0].level_up(queued_actions[LEVELUP][y][1])
+			return
+		LEAVE:
+			for y in range(queued_actions[LEAVE].size()):
+				leave(queued_actions[LEAVE][y])
+			return
 
 func all_players_experience():
 	for player in get_tree().get_nodes_in_group("Player"):

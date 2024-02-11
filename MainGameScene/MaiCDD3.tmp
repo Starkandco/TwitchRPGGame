@@ -81,7 +81,7 @@ position = Vector2(955, 60.5)
 shape = SubResource("RectangleShape2D_mpsko")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="GameBoard/StaticBody2D"]
-position = Vector2(966, 1096)
+position = Vector2(966, 1094)
 shape = SubResource("RectangleShape2D_mpsko")
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="GameBoard/StaticBody2D"]
