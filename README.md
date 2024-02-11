@@ -4,12 +4,12 @@ This is a really basic game to play with your viewers on twitch / keep the chat 
 
 # SETUP
 
-Go to https://dev.twitch.tv/ and login. 
-Register an Application in the Application section.
-Name the application and get a Client ID.
-Run the game for the first time to generate "setup.cfg" in the folder the .exe is in (this must stay in the same folder as the .exe file)
-Update the setup.cfg with your client ID, channel name, and a name for the bot (anything works here)
-Run again and confirm authorisation from twitch to the app!
+1. Go to https://dev.twitch.tv/ and login. 
+2. Register an Application in the Application section.
+3. Name the application and get a Client ID.
+4. Run the game for the first time to generate "setup.cfg" in the folder the .exe is in (this must stay in the same folder as the .exe file)
+5. Update the setup.cfg with your client ID, channel name, and a name for the bot (anything works here)
+6. Run again and confirm authorisation from twitch to the app!
 
 --
 
