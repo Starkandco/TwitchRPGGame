@@ -135,18 +135,29 @@ script = ExtResource("5_22who")
 [node name="Window" type="Window" parent="."]
 title = "debug"
 position = Vector2i(100, 100)
+size = Vector2i(300, 300)
 visible = false
 script = ExtResource("4_dlp84")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Window"]
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="MarginContainer" type="MarginContainer" parent="Window"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
 
-[node name="Button" type="Button" parent="Window/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Window/MarginContainer"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="Window/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Add player"
 
-[node name="OptionButton" type="OptionButton" parent="Window/VBoxContainer"]
+[node name="OptionButton" type="OptionButton" parent="Window/MarginContainer/VBoxContainer"]
 layout_mode = 2
 item_count = 5
 selected = 0
@@ -161,7 +172,7 @@ popup/item_3/id = 3
 popup/item_4/text = "30"
 popup/item_4/id = 4
 
-[node name="OptionButton2" type="OptionButton" parent="Window/VBoxContainer"]
+[node name="OptionButton2" type="OptionButton" parent="Window/MarginContainer/VBoxContainer"]
 layout_mode = 2
 item_count = 5
 selected = 2
@@ -175,6 +186,47 @@ popup/item_3/text = "7"
 popup/item_3/id = 3
 popup/item_4/text = "10"
 popup/item_4/id = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Window/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Window/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Chatter HP"
+
+[node name="PlayerHealth" type="LineEdit" parent="Window/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Window/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Window/MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "Chatter Damage
+"
+
+[node name="PlayerDamage" type="LineEdit" parent="Window/MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="Window/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Window/MarginContainer/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+text = "Bot HP"
+
+[node name="BotHealth" type="LineEdit" parent="Window/MarginContainer/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="Window/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Window/MarginContainer/VBoxContainer/HBoxContainer4"]
+layout_mode = 2
+text = "Bot damage"
+
+[node name="BotDamage" type="LineEdit" parent="Window/MarginContainer/VBoxContainer/HBoxContainer4"]
+layout_mode = 2
 
 [node name="Popup" type="Window" parent="."]
 process_mode = 3
@@ -203,7 +255,11 @@ text = "OK, I understand"
 [connection signal="body_entered" from="GameBoard/PlayerGoal" to="." method="_on_player_goal_body_entered"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="close_requested" from="Window" to="Window" method="_on_close_requested"]
-[connection signal="pressed" from="Window/VBoxContainer/Button" to="Window" method="_on_button_pressed"]
-[connection signal="item_selected" from="Window/VBoxContainer/OptionButton" to="Window" method="_on_option_button_item_selected"]
-[connection signal="item_selected" from="Window/VBoxContainer/OptionButton2" to="Window" method="_on_option_button_2_item_selected"]
+[connection signal="pressed" from="Window/MarginContainer/VBoxContainer/Button" to="Window" method="_on_button_pressed"]
+[connection signal="item_selected" from="Window/MarginContainer/VBoxContainer/OptionButton" to="Window" method="_on_option_button_item_selected"]
+[connection signal="item_selected" from="Window/MarginContainer/VBoxContainer/OptionButton2" to="Window" method="_on_option_button_2_item_selected"]
+[connection signal="text_submitted" from="Window/MarginContainer/VBoxContainer/HBoxContainer/PlayerHealth" to="Window" method="_on_player_health_text_submitted"]
+[connection signal="text_submitted" from="Window/MarginContainer/VBoxContainer/HBoxContainer2/PlayerDamage" to="Window" method="_on_player_damage_text_submitted"]
+[connection signal="text_submitted" from="Window/MarginContainer/VBoxContainer/HBoxContainer3/BotHealth" to="Window" method="_on_bot_health_text_submitted"]
+[connection signal="text_submitted" from="Window/MarginContainer/VBoxContainer/HBoxContainer4/BotDamage" to="Window" method="_on_bot_damage_text_submitted"]
 [connection signal="pressed" from="Popup/VBoxContainer/Button" to="Popup" method="_on_button_pressed"]

@@ -5,12 +5,6 @@ class_name Enemy
 var options: Array[String] = ["HEALTH", "DAMAGE"]
 var directions = ["UP","LEFT","LEFT","LEFT"]
 
-func _ready():
-	$HealthBar.max_value = max_health
-	$HealthBar.value = health
-	$StrengthBar.value = damage
-	$StrengthBar.max_value = max_damage
-
 func queue_command():
 	var randi_direction = directions[randi_range(0, 3)]
 	prepare_move(randi_direction)

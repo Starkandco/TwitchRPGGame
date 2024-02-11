@@ -4,16 +4,22 @@ class_name Player
 
 const horizontal_speed: int = 64
 const vertical_speed: int = 128
-@export var damage: int = 5
-@export var max_damage: int = 100
-@export var health: int = 100
-@export var max_health: int = 100
+var damage: int = 5
+var max_damage: int = 100
+var max_health: int = 100
+var health: int = 100
 var experience: int = 0
 var level: int = 1
 var level_tokens: int = 0
 var user: String = ""
 
 signal died
+
+func _ready():
+	health = max_health
+	$HealthBar.max_value = max_health
+	$HealthBar.value = health
+	$StrengthBar.value = damage
 
 func level_up(stat):
 	if level_tokens == 0:

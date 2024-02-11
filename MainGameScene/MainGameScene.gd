@@ -14,6 +14,11 @@ signal actions_complete
 
 enum {LEAVE, MOVE, JOIN, LEVELUP}
 
+var chatter_health
+var bot_health
+var chatter_damage
+var bot_damage
+
 func _ready():
 	for x in range(66, DisplayServer.window_get_size().x  - 63, 64):
 		for y in range(130, DisplayServer.window_get_size().y - 127, 128):
@@ -31,6 +36,8 @@ func join(user):
 		if is_open_position():
 			var player = player_scene.instantiate()
 			player.user = user
+			player.max_health = chatter_health
+			player.damage = chatter_damage
 			$GameBoard/Players.call_deferred("add_child", player)
 			players[user] = [player, 0, colours[number_of_players - 1]]
 			player.global_position = get_open_position()
@@ -94,6 +101,8 @@ func try_create_bot() -> void:
 				var enemy = enemy_scene.instantiate()
 				enemy.user = "BOT BEEP BOOP - " + str(randf_range(0, 100))
 				players[enemy.user] = [enemy, 0, colours[bots.size() - 1]]
+				enemy.max_health = bot_health
+				enemy.damage = bot_damage
 				add_child(enemy)
 				enemy.died.connect(leave.bind(enemy.user))
 				enemy.global_position = get_enemy_position()
@@ -118,8 +127,8 @@ func loop_actions(x) -> void:
 				await get_tree().create_timer(1).timeout
 			return
 		LEVELUP:
-			for y in range(queued_actions[LEVELUP].size()):
-				players[queued_actions[LEVELUP][y][0]][0].level_up(queued_actions[LEVELUP][y][1])
+			for player_name in queued_actions[LEVELUP]:
+				players[player_name][0].level_up(queued_actions[LEVELUP][player_name])
 			return
 		LEAVE:
 			for y in range(queued_actions[LEAVE].size()):
